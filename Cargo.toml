@@ -1,5 +1,5 @@
 [package]
-name = "substitution_pdf_to_json"
+name = "substitution_common"
 version = "0.1.0"
 edition = "2021"
 
