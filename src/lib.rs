@@ -79,3 +79,10 @@ pub struct SubstitutionSchedule {
 	/// The time when the struct was created, used for comparing the age.
 	pub struct_time: u64,
 }
+
+#[derive(Error, Debug)]
+pub enum PDFJsonError {
+	#[error("There was an error while reading the PDF File.")]
+	PDFReadError
+}
+
