@@ -1,7 +1,8 @@
 use std::path::Path;
 use tracing::{trace};
 use uuid::Uuid;
-use crate::TEMP_ROOT_DIR;
+
+const TEMP_ROOT_DIR: &str = "/tmp";
 
 /// Returns a random name (UUID).
 /// Used for temp directories and temp files for example.
