@@ -7,7 +7,7 @@ use std::process::Command;
 use std::time::SystemTime;
 use serde::{Deserialize, Serialize};
 use tracing::debug;
-
+use thiserror::Error;
 
 pub trait SubstitutionPDFExtractor {
 	fn schedule_from_pdf<R: Read>(pdf: R) -> Result<SubstitutionSchedule, Box<dyn std::error::Error>>;
