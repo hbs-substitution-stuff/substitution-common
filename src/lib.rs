@@ -75,7 +75,7 @@ pub struct SubstitutionSchedule {
 	/// The creation date inside the PDF in milliseconds.
 	pub pdf_issue_date: i64,
 	/// The name of the class is the Key and the Value is a Substitutions struct.
-	entries: HashMap<String, SubstitutionColumn>,
+	pub entries: HashMap<String, SubstitutionColumn>,
 	/// The time when the struct was created, used for comparing the age.
-	struct_time: u64,
+	pub struct_time: u64,
 }
