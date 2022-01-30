@@ -52,6 +52,26 @@ impl SubstitutionColumn {
 			block_5: None,
 		}
 	}
+
+	pub fn from_vec(col: [String; 6]) -> Self {
+		let mut column = col.into_iter().map(|s| {
+			if !s.chars().all(|c| c == ' ' || c == '\n') {
+				Some(s)
+			} else {
+				None
+			}
+		});
+
+		Self {
+			block_0: column.next().unwrap(),
+			block_1: column.next().unwrap(),
+			block_2: column.next().unwrap(),
+			block_3: column.next().unwrap(),
+			block_4: column.next().unwrap(),
+			block_5: column.next().unwrap(),
+
+		}
+	}
 }
 
 impl Default for SubstitutionColumn {
@@ -73,8 +93,6 @@ pub struct SubstitutionSchedule {
 	pub pdf_issue_date: i64,
 	/// The name of the class is the Key and the Value is a Substitutions struct.
 	pub entries: HashMap<String, SubstitutionColumn>,
-	/// The time when the struct was created, used for comparing the age.
-	pub struct_time: u64,
 }
 
 #[derive(Error, Debug)]
