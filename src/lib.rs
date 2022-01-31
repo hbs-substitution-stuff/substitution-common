@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 use thiserror::Error;
 
 pub trait SubstitutionPDFExtractor {
-	fn schedule_from_pdf<R: Read>(&self, pdf: R) -> Result<SubstitutionSchedule, Box<dyn std::error::Error>>;
+	fn schedule_from_pdf(&mut self) -> Result<SubstitutionSchedule, Box<dyn std::error::Error>>;
 }
 
 /// One column with Substitutions from the PDF
@@ -53,7 +53,7 @@ impl SubstitutionColumn {
 		}
 	}
 
-	pub fn from_vec(col: [String; 6]) -> Self {
+	pub fn from_vec(col: Vec<String>) -> Self {
 		let mut column = col.into_iter().map(|s| {
 			if !s.chars().all(|c| c == ' ' || c == '\n') {
 				Some(s)
