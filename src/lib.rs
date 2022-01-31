@@ -101,3 +101,11 @@ pub enum PDFJsonError {
 	PDFReadError
 }
 
+pub struct Substitution(Vec<String>);
+
+impl ToString for Substitution {
+	fn to_string(&self) -> String {
+		self.0.iter()
+			.fold(String::new(), |a, b| a + b + "\n")
+	}
+}

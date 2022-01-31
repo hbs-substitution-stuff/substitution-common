@@ -9,11 +9,16 @@ edition = "2021"
 lopdf = "0.26.0"
 
 serde_json = "1.0.70"
-serde = { version = "1.0.130", features = ["default", "derive", "rc"] }
 
 tracing = "0.1"
 tracing-subscriber = "0.3"
 
 thiserror = "1.0.30"
 
-uuid = { version = "0.8.2", features = ["v4"] }
+[dependencies.uuid]
+version = "0.8.2"
+features = ["v4"]
+
+[dependencies.serde]
+version = "1.0.130"
+features = ["default", "derive", "rc"]
