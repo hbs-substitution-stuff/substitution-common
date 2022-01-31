@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 use thiserror::Error;
 
 pub trait SubstitutionPDFExtractor {
-	fn schedule_from_pdf(&mut self) -> Result<SubstitutionSchedule, Box<dyn std::error::Error>>;
+	fn schedule_from_pdf<R: Read>(pdf: R) -> Result<SubstitutionSchedule, Box<dyn std::error::Error>>;
 }
 
 /// One column with Substitutions from the PDF
