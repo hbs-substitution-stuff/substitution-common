@@ -72,6 +72,26 @@ impl SubstitutionColumn {
 
 		}
 	}
+
+	pub fn from_2d_vec(col: Vec<Vec<String>>) -> Result<Self, Box<dyn std::error::Error>> {
+		let mut column = col.into_iter().map(|s| {
+			if !s.iter().all(|s| s.chars().all(|c| c == ' ' || c == '\n')){
+				Some(Substitution(s))
+			} else {
+				None
+			}
+		});
+
+		Ok(Self {
+			block_0: column.next().ok_or("vector to short")?,
+			block_1: column.next().ok_or("vector to short")?,
+			block_2: column.next().ok_or("vector to short")?,
+			block_3: column.next().ok_or("vector to short")?,
+			block_4: column.next().ok_or("vector to short")?,
+			block_5: column.next().ok_or("vector to short")?,
+
+		})
+	}
 }
 
 impl Default for SubstitutionColumn {
@@ -102,7 +122,7 @@ pub enum PDFJsonError {
 }
 
 #[derive(Serialize, Deserialize, Debug, PartialOrd, PartialEq)]
-pub struct Substitution(Vec<String>);
+pub struct Substitution(pub Vec<String>);
 
 impl ToString for Substitution {
 	fn to_string(&self) -> String {
