@@ -16,27 +16,27 @@ pub struct SubstitutionColumn {
 	#[serde(rename(serialize = "0"))]
 	#[serde(rename(deserialize = "0"))]
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub block_0: Option<String>,
+	pub block_0: Option<Substitution>,
 	#[serde(rename(serialize = "1"))]
 	#[serde(rename(deserialize = "1"))]
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub block_1: Option<String>,
+	pub block_1: Option<Substitution>,
 	#[serde(rename(serialize = "2"))]
 	#[serde(rename(deserialize = "2"))]
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub block_2: Option<String>,
+	pub block_2: Option<Substitution>,
 	#[serde(rename(serialize = "3"))]
 	#[serde(rename(deserialize = "3"))]
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub block_3: Option<String>,
+	pub block_3: Option<Substitution>,
 	#[serde(rename(serialize = "4"))]
 	#[serde(rename(deserialize = "4"))]
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub block_4: Option<String>,
+	pub block_4: Option<Substitution>,
 	#[serde(rename(serialize = "5"))]
 	#[serde(rename(deserialize = "5"))]
 	#[serde(skip_serializing_if = "Option::is_none")]
-	pub block_5: Option<String>,
+	pub block_5: Option<Substitution>,
 }
 
 /// Represents a column from the substitution PDF.
@@ -56,7 +56,7 @@ impl SubstitutionColumn {
 	pub fn from_vec(col: Vec<String>) -> Self {
 		let mut column = col.into_iter().map(|s| {
 			if !s.chars().all(|c| c == ' ' || c == '\n') {
-				Some(s)
+				Some(Substitution::from(s))
 			} else {
 				None
 			}
@@ -101,11 +101,18 @@ pub enum PDFJsonError {
 	PDFReadError
 }
 
+#[derive(Serialize, Deserialize, Debug, PartialOrd, PartialEq)]
 pub struct Substitution(Vec<String>);
 
 impl ToString for Substitution {
 	fn to_string(&self) -> String {
 		self.0.iter()
 			.fold(String::new(), |a, b| a + b + "\n")
+	}
+}
+
+impl From<String> for Substitution {
+	fn from(s: String) -> Self {
+		Self(s.split('\n').map(|a| a.to_string()).collect())
 	}
 }
